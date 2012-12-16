@@ -1,13 +1,61 @@
-# Compiled Object files
-*.slo
-*.lo
-*.o
+#include <iostream>
+using namespace std;
+struct thuman{
+int godina,ai_input_time,bi_nothing_time,ci_prior,di_trans;
+float stanje_tekuci,stanje_devizni;
+char ime[50],prezime[50],valuta[50];
+};
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
+
+struct tsal{
+int front,rear;
+thuman*polje_ljudi[10000];
+};
+
+
+
+void init(tsal*neki_red){
+neki_red->front=0;
+neki_red->rear=9999;
+}
+
+
+
+
+
+int ADDONE(int rear){
+rear=(rear+1)%10000;
+return rear;
+}
+
+
+
+
+void enqueue(tsal*neki_red,thuman*neka_osoba){
+int zadnja_pozicija=neki_red->rear;
+zadnja_pozicija=ADDONE(zadnja_pozicija);
+neki_red->polje_ljudi[zadnja_pozicija]=neka_osoba;
+neki_red->rear=zadnja_pozicija;
+}
+
+
+
+
+void dequeue(tsal*neki_red){
+neki_red->front=ADDONE(neki_red->front);
+}
+
+
+
+
+bool isempty(tsal*neki_red){
+if(ADDONE(neki_red->rear)==neki_red->front)return true;
+else return false;
+}
+
+
+
+thuman*front(tsal*neki_red){
+return neki_red->polje_ljudi[neki_red->front];
+}
